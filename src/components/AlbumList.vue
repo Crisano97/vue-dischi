@@ -1,6 +1,7 @@
 <template>
         <div class="container">
-            <AlbumCard v-for="(album,index) in albums" :key="index" 
+            <AlbumCard
+             v-for="(album,index) in albums" :key="index" 
             :poster="album.poster"
             :title="album.title"
             :author="album.author"
