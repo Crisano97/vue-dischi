@@ -5,9 +5,7 @@
 </template>
 
 <script>
-import Header from '../../../vue-dc-comics/src/components/Header.vue'
 export default {
-  components: { Header },
 
 }
 </script>

@@ -1,9 +1,9 @@
 <template>
     <div class="albums-container">
         <div class="card">
-            <img src="https://img.discogs.com/vknPDdrqRbT92pNRX0W4I5N91jg=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-1246953-1448927086-6590.jpeg.jpg" alt="">
-            <span>Bon JOvi</span>
-            <span>1988</span>
+            <img :src="poster" alt="">
+            <span>{{ author }}</span>
+            <span>{{ year }}</span>
         </div>
         
     </div>
@@ -11,7 +11,13 @@
 
 <script>
 export default {
-
+    props: {
+        'poster': String,
+        'title': String,
+        'author': String,
+        'genre': String,
+        'year': [Number, String],
+    }
 }
 </script>
 
