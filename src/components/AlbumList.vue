@@ -47,10 +47,10 @@ export default {
 
 <style lang="scss" scoped>
     .container{
-            width: 50%;
+            width: 60%;
             margin: 0 auto;
-            background-color: antiquewhite;
-            
-            
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
         }
 </style>
