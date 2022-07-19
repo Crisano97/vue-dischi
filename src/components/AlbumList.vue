@@ -9,8 +9,31 @@
 import AlbumCard from './AlbumCard.vue';
 
 export default {
+
+    data: function(){
+        return{
+
+        }
+    },
+    name: 'AlbumList',
     components: {
-        AlbumCard
+        AlbumCard,
+    },
+
+    methods:{
+        getAlbums(){
+            axios.get('https://flynn.boolean.careers/exercises/api/array/music')
+            .then((result) => {
+                console.log(result);
+            })
+            .catch((error) => {
+                console.warn(error);
+            })
+        }
+    },
+    
+    created(){
+        this.getAlbums();
     }
 }
 </script>
