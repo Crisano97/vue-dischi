@@ -44,7 +44,7 @@ export default {
             axios.get('https://flynn.boolean.careers/exercises/api/array/music')
             .then((result) => {
                 this.albums = result.data.response;
-                this.filteredAlbums = this.albums
+                this.filteredAlbums = this.albums;
                 console.log(this.albums);
                 
                 for (let i = 0; i < this.albums.length; i++){
