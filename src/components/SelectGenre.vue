@@ -1,6 +1,6 @@
 <template>
   <div>
-    <select name="genre" id="genre-select">
+    <select name="genre" id="genre-select" v-model="optionValue" @click="$emit('option', optionValue)">
         <option value="">Select a genre</option>
         <option :value="item" v-for="(item,index) in list" :key="index">{{ item }}</option>
         
@@ -12,7 +12,7 @@
 export default {
     data: function(){
         return{
-            selectInput: ''
+            optionValue: '',
         }
     },
     props:{

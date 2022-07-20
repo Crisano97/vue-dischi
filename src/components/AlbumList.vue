@@ -1,11 +1,14 @@
 <template>
         <div class="container">
             <div class="select-container">
-                <SelectGenre :list="albumGenre"/>
+                <SelectGenre 
+                @option="selectAlbumFilter"
+                :list="albumGenre"
+                />
             </div>
             <div class="album-container">
                 <AlbumCard
-                v-for="(album,index) in albums" :key="index" 
+                v-for="(album,index) in filteredAlbums" :key="index" 
                 :poster="album.poster"
                 :title="album.title"
                 :author="album.author"
@@ -41,8 +44,8 @@ export default {
             axios.get('https://flynn.boolean.careers/exercises/api/array/music')
             .then((result) => {
                 this.albums = result.data.response;
+                this.filteredAlbums = this.albums
                 console.log(this.albums);
-                console.log(this.selectAlbumFilter('rock'))
                 
                 for (let i = 0; i < this.albums.length; i++){
                     if (!this.albumGenre.includes(this.albums[i].genre)){
@@ -56,9 +59,8 @@ export default {
             })
         },
         selectAlbumFilter(needle){
-            const filteredAlbums = [...this.albums];
-            console.log(filteredAlbums);
-            return filteredAlbums.filter((album) => album.genre.toLowerCase().includes(needle))
+            this.filteredAlbums = [...this.albums].filter((album) => album.genre.includes(needle));
+            console.warn(this.filteredAlbums)
         }
     },
     
