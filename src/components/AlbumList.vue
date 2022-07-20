@@ -1,30 +1,38 @@
 <template>
         <div class="container">
-            <AlbumCard
-             v-for="(album,index) in albums" :key="index" 
-            :poster="album.poster"
-            :title="album.title"
-            :author="album.author"
-            :genre="album.genre"
-            :year="album.year"
-            />
+            <div class="select-container">
+                <SelectGenre />
+            </div>
+            <div class="album-container">
+                <AlbumCard
+                v-for="(album,index) in albums" :key="index" 
+                :poster="album.poster"
+                :title="album.title"
+                :author="album.author"
+                :genre="album.genre"
+                :year="album.year"
+                />
+            </div>
         </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
 import AlbumCard from './AlbumCard.vue';
+import SelectGenre from './SelectGenre.vue';
 
 export default {
 
     data: function(){
         return{
-            albums : []
+            albums : [],
+            filteredAlbums: [],
         }
     },
     name: 'AlbumList',
     components: {
         AlbumCard,
+        SelectGenre,
     },
 
     methods:{
@@ -33,10 +41,16 @@ export default {
             .then((result) => {
                 this.albums = result.data.response;
                 console.log(this.albums);
+                console.log(this.selectAlbumFilter('rock'))
+
             })
             .catch((error) => {
                 console.warn(error);
             })
+        },
+        selectAlbumFilter(needle){
+            this.filteredAlbums = [...this.albums];
+            this.filteredAlbums.filter((album) => album.genre.toLowerCase().includes(needle))
         }
     },
     
@@ -48,8 +62,16 @@ export default {
 
 <style lang="scss" scoped>
     .container{
-            width: 60%;
-            margin: 0 auto;
+        width: 60%;
+        margin: 0 auto;
+    }
+
+    .select-container{
+        padding: 2rem 0;
+        text-align: end;
+    }
+    .album-container{
+            
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
