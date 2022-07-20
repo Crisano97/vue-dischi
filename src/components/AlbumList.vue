@@ -1,7 +1,7 @@
 <template>
         <div class="container">
             <div class="select-container">
-                <SelectGenre />
+                <SelectGenre :list="albumGenre"/>
             </div>
             <div class="album-container">
                 <AlbumCard
@@ -27,6 +27,7 @@ export default {
         return{
             albums : [],
             filteredAlbums: [],
+            albumGenre: [],
         }
     },
     name: 'AlbumList',
@@ -42,15 +43,22 @@ export default {
                 this.albums = result.data.response;
                 console.log(this.albums);
                 console.log(this.selectAlbumFilter('rock'))
-
+                
+                for (let i = 0; i < this.albums.length; i++){
+                    if (!this.albumGenre.includes(this.albums[i].genre)){
+                        this.albumGenre.push(this.albums[i].genre)
+                    }
+                }
+                console.log(this.albumGenre);
             })
             .catch((error) => {
                 console.warn(error);
             })
         },
         selectAlbumFilter(needle){
-            this.filteredAlbums = [...this.albums];
-            this.filteredAlbums.filter((album) => album.genre.toLowerCase().includes(needle))
+            const filteredAlbums = [...this.albums];
+            console.log(filteredAlbums);
+            return filteredAlbums.filter((album) => album.genre.toLowerCase().includes(needle))
         }
     },
     
