@@ -2,8 +2,12 @@
         <div class="container">
             <div class="select-container">
                 <SelectGenre 
-                @option="selectAlbumFilter"
-                :list="albumGenre"
+                @option="selectAlbumFromGenre"
+                :albumGenreList="albumGenre"
+                />
+                <SelectAuthor 
+                @authorOption="selectAlbumFromAuthor"
+                :albumAuthorList="albumAuthor"
                 />
             </div>
             <div class="album-container">
@@ -23,6 +27,7 @@
 import axios from 'axios';
 import AlbumCard from './AlbumCard.vue';
 import SelectGenre from './SelectGenre.vue';
+import SelectAuthor from './SelectAuthor.vue';
 
 export default {
 
@@ -31,12 +36,14 @@ export default {
             albums : [],
             filteredAlbums: [],
             albumGenre: [],
+            albumAuthor: [],
         }
     },
     name: 'AlbumList',
     components: {
         AlbumCard,
         SelectGenre,
+        SelectAuthor
     },
 
     methods:{
@@ -49,19 +56,31 @@ export default {
                 
                 for (let i = 0; i < this.albums.length; i++){
                     if (!this.albumGenre.includes(this.albums[i].genre)){
-                        this.albumGenre.push(this.albums[i].genre)
+                        this.albumGenre.push(this.albums[i].genre);
                     }
                 }
+                
+                for (let i = 0; i < this.albums.length; i++){
+                    if (!this.albumAuthor.includes(this.albums[i].author)){
+                        this.albumAuthor.push(this.albums[i].author);
+                    }
+                }
+
                 console.log(this.albumGenre);
+                console.warn(this.albumAuthor)
             })
             .catch((error) => {
                 console.warn(error);
             })
         },
-        selectAlbumFilter(needle){
+        selectAlbumFromGenre(needle){
             this.filteredAlbums = [...this.albums].filter((album) => album.genre.includes(needle));
             console.warn(this.filteredAlbums)
-        }
+        },
+        selectAlbumFromAuthor(needle){
+            this.filteredAlbums = [...this.albums].filter((album) => album.author.includes(needle));
+            console.warn(this.filteredAlbums)
+        },
     },
     
     created(){
